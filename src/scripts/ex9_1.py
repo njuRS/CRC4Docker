@@ -6,7 +6,7 @@ import numpy as np
 from osgeo import gdal
 from osgeo.gdalconst import GA_ReadOnly
 import matplotlib.pyplot as plt
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import  em
     
 def main(): 
@@ -26,7 +26,7 @@ def main():
     G[:,0] = G1-np.mean(G1)
     G[:,1] = G2-np.mean(G2)
 #  initial PCA
-    cpm = auxil.Cpm(2) 
+    cpm = auxil1.Cpm(2) 
     cpm.update(G)  
     eivs,w = np.linalg.eigh(cpm.covariance())
     eivs = eivs[::-1]

@@ -8,7 +8,7 @@
 #  Copyright (c) 2018, Mort Canty
 
 
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import numpy as np
 from scipy import stats 
 import sys, getopt

@@ -8,7 +8,7 @@
 #  Copyright (c) 2018 Mort Canty
 
 import numpy as np
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import os, sys, getopt, time
 from osgeo import gdal
 import matplotlib.pyplot as plt
@@ -94,7 +94,7 @@ Options:
         D[:,b] = (tmp-(np.roll(tmp,1,axis=0)+np.roll(tmp,1,axis=1))/2).ravel() 
     Sn = np.mat(D).T*np.mat(D)/(2*(rows*cols-1))
 #  generalized eigenproblem    
-    lambdas,eivs = auxil.geneiv(Sn,S)
+    lambdas,eivs = auxil1.geneiv(Sn,S)
     idx = (np.argsort(lambdas))
     lambdas = lambdas[idx]
     eivs = (eivs[:,idx]).T      

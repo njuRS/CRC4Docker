@@ -8,7 +8,7 @@
 #
 #  Copyright (c) 2018, Mort Canty
 
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import os, time, sys, getopt
 import numpy as np
 import scipy.ndimage.interpolation as ndii
@@ -113,7 +113,7 @@ Options:
 #  if integer assume 11-bit quantization, otherwise must be byte 
     if MS.dtype == np.int16:
         fact = 8.0
-        MS = auxil.bytestr(MS,(0,2**11))      
+        MS = auxil1.bytestr(MS,(0,2**11))      
     else:
         fact = 1.0               
 #  read in corresponding spatial subset of PAN image       
@@ -129,11 +129,11 @@ Options:
     PAN = band.ReadAsArray(x20,y20,cols2,rows2)
 #  if integer assume 11-bit quantization, otherwise must be byte    
     if PAN.dtype == np.int16:
-        PAN = auxil.bytestr(PAN,(0,2**11))    
+        PAN = auxil1.bytestr(PAN,(0,2**11))    
 #  out array    
     sharpened = np.zeros((num_bands,rows2,cols2),dtype=np.float32)          
 #  compress PAN to resolution of MS image using DWT  
-    panDWT = auxil.DWTArray(PAN,cols2,rows2)          
+    panDWT = auxil1.DWTArray(PAN,cols2,rows2)          
     r = ratio
     while r > 1:
         panDWT.filter()
@@ -143,7 +143,7 @@ Options:
     lines0,samples0 = bn0.shape    
     bn1 = MS[k1-1,:,:]  
 #  register (and subset) MS image to compressed PAN image 
-    (scale,angle,shift) = auxil.similarity(bn0,bn1)
+    (scale,angle,shift) = auxil1.similarity(bn0,bn1)
     tmp = np.zeros((num_bands,lines0,samples0))
     for k in range(num_bands): 
         bn1 = MS[k,:,:]                    
@@ -156,7 +156,7 @@ Options:
     print 'Wavelet correlations:'    
 #  loop over MS bands
     for k in range(num_bands):
-        msATWT = auxil.ATWTArray(PAN)
+        msATWT = auxil1.ATWTArray(PAN)
         r = ratio
         while r > 1:
             msATWT.filter()
@@ -167,7 +167,7 @@ Options:
 #      resize the ms band to scale of the pan image
         ms_band = ndii.zoom(MS[k,:,:],ratio)
 #      sample details of MS band
-        tmpATWT = auxil.ATWTArray(ms_band)
+        tmpATWT = auxil1.ATWTArray(ms_band)
         r = ratio
         while r > 1:
             tmpATWT.filter()
@@ -177,7 +177,7 @@ Options:
 #      get band for injection
         bnd = tmpATWT.get_band(0) 
         tmpATWT = None 
-        aa,bb,R = auxil.orthoregress(X,Y)
+        aa,bb,R = auxil1.orthoregress(X,Y)
         print 'Band '+str(k+1)+': %8.3f'%R
 #      inject the filtered MS band
         msATWT.inject(bnd)    

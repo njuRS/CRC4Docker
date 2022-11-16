@@ -10,7 +10,7 @@
 import numpy as np
 import os, sys, getopt, time
 from osgeo import gdal
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import scipy.ndimage.filters as filters
 from osgeo.gdalconst import GA_ReadOnly, GDT_Float32
 
@@ -125,7 +125,7 @@ Options:
     k = 0
     for b in pos:
         band = inDataset.GetRasterBand(b)
-        data[:,:,k] = auxil.bytestr(band.ReadAsArray(x0,y0,nc,nr))
+        data[:,:,k] = auxil1.bytestr(band.ReadAsArray(x0,y0,nc,nr))
         k += 1
 #  normalize spatial/spectral    
     data = data*hs/hr

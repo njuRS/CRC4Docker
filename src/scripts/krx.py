@@ -8,7 +8,7 @@
 #  Copyright (c) 2018, Mort Canty
 
 import numpy as np
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import os, sys, getopt, time
 from osgeo import gdal
 from osgeo.gdalconst import GA_ReadOnly,GDT_Float32
@@ -74,8 +74,8 @@ Options:
     print time.asctime()     
     print 'Input %s'%infile
     start = time.time()  
-    K,gma=auxil.kernelMatrix(G,nscale=nscale,kernel=1)
-    Kc = auxil.center(K)
+    K,gma=auxil1.kernelMatrix(G,nscale=nscale,kernel=1)
+    Kc = auxil1.center(K)
     print 'GMA: %f'%gma
 #  pseudoinvert centered kernel matrix     
     lam, alpha = np.linalg.eigh(Kc)
@@ -95,7 +95,7 @@ Options:
         if i % 100 == 0:
             print 'row: %i'%i     
         GGi = GG[i*cols:(i+1)*cols,:]
-        Kg,_=auxil.kernelMatrix(GGi,G,gma=gma,kernel=1)
+        Kg,_=auxil1.kernelMatrix(GGi,G,gma=gma,kernel=1)
         a = np.sum(Kg,1)
         a = a*np.mat(np.ones(m))
         Kg = Kg - a/m

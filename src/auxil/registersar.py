@@ -20,7 +20,7 @@
 import sys, getopt
   
 def register(file0, file1, dims=None, outfile=None): 
-    import auxil.auxil1 as auxil
+    import auxil.auxil1 as auxil1
     import os, time
     import numpy as np
     from osgeo import gdal
@@ -100,7 +100,7 @@ def register(file0, file1, dims=None, outfile=None):
             rasterBand = inDataset1.GetRasterBand(9)
             span1 += rasterBand.ReadAsArray(x1, y1, cols, rows)  
             span1 = np.log(np.nan_to_num(span1)+0.001)                           
-            scale, angle, shift = auxil.similarity(span0, span1)   
+            scale, angle, shift = auxil1.similarity(span0, span1)   
     #      warp the target to the reference and clip
             for k in range(9): 
                 rasterBand = inDataset1.GetRasterBand(k+1)
@@ -122,7 +122,7 @@ def register(file0, file1, dims=None, outfile=None):
             rasterBand = inDataset1.GetRasterBand(4)
             span1 += rasterBand.ReadAsArray(x1, y1, cols, rows)
             span1 = np.log(np.nan_to_num(span1)+0.001)                           
-            scale, angle, shift = auxil.similarity(span0, span1)   
+            scale, angle, shift = auxil1.similarity(span0, span1)   
     #      warp the target to the reference and clip
             for k in range(4): 
                 rasterBand = inDataset1.GetRasterBand(k+1)
@@ -148,7 +148,7 @@ def register(file0, file1, dims=None, outfile=None):
             rasterBand = inDataset1.GetRasterBand(3)
             span1 += rasterBand.ReadAsArray(x1, y1, cols, rows)
             span1 = np.log(np.nan_to_num(span1)+0.001)                           
-            scale, angle, shift = auxil.similarity(span0, span1)   
+            scale, angle, shift = auxil1.similarity(span0, span1)   
     #      warp the target to the reference and clip
             for k in range(3): 
                 rasterBand = inDataset1.GetRasterBand(k+1)
@@ -170,7 +170,7 @@ def register(file0, file1, dims=None, outfile=None):
             rasterBand = inDataset1.GetRasterBand(2)
             span1 += rasterBand.ReadAsArray(x1, y1, cols, rows)
             span1 = np.log(np.nan_to_num(span1)+0.001)                           
-            scale, angle, shift = auxil.similarity(span0, span1)   
+            scale, angle, shift = auxil1.similarity(span0, span1)   
     #      warp the target to the reference and clip
             for k in range(2): 
                 rasterBand = inDataset1.GetRasterBand(k+1)
@@ -188,7 +188,7 @@ def register(file0, file1, dims=None, outfile=None):
             print 'warping 1 band (single pol)...' 
             span0 = np.log(np.nan_to_num(span0)+0.001)                                   
             span1 = np.log(np.nan_to_num(span1)+0.001)                           
-            scale, angle, shift = auxil.similarity(span0, span1)   
+            scale, angle, shift = auxil1.similarity(span0, span1)   
     #      warp the target to the reference and clip
             for k in range(1): 
                 rasterBand = inDataset1.GetRasterBand(k+1)

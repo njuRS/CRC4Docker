@@ -13,7 +13,8 @@ from numpy.fft import fft2, ifft2, fftshift
 import scipy.ndimage.interpolation as ndii 
 
 # wrap the provisional means dll
-lib = ctypes.cdll.LoadLibrary('libprov_means.so')    
+# lib = ctypes.cdll.LoadLibrary('libprov_means.so')
+lib = ctypes.cdll.LoadLibrary('prov_means.dll')    
 provmeans = lib.provmeans 
 provmeans.restype = None   
 c_double_p = ctypes.POINTER(ctypes.c_double) 

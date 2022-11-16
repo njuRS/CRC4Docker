@@ -7,7 +7,7 @@
 #
 #  Copyright (c) 2018, Mort Canty
 
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import os, sys, getopt, time, copy
 import numpy as np
 from osgeo import gdal
@@ -111,7 +111,7 @@ Options:
 #  if integer assume 11bit quantization otherwise must be byte   
     if MS.dtype == np.int16:
         fact = 8.0
-        MS = auxil.bytestr(MS,(0,2**11)) 
+        MS = auxil1.bytestr(MS,(0,2**11)) 
     else:
         fact = 1.0
 #  read in corresponding spatial subset of PAN image    
@@ -131,9 +131,9 @@ Options:
     PAN = band.ReadAsArray(x20,y20,cols2,rows2)        
 #  if integer assume 11-bit quantization, otherwise must be byte    
     if PAN.dtype == np.int16:
-        PAN = auxil.bytestr(PAN,(0,2**11))                                   
+        PAN = auxil1.bytestr(PAN,(0,2**11))                                   
 #  compress PAN to resolution of MS image  
-    panDWT = auxil.DWTArray(PAN,cols2,rows2)          
+    panDWT = auxil1.DWTArray(PAN,cols2,rows2)          
     r = ratio
     while r > 1:
         panDWT.filter()
@@ -142,7 +142,7 @@ Options:
     lines0,samples0 = bn0.shape    
     bn1 = MS[k1,:,:]  
 #  register (and subset) MS image to compressed PAN image 
-    (scale,angle,shift) = auxil.similarity(bn0,bn1)
+    (scale,angle,shift) = auxil1.similarity(bn0,bn1)
     tmp = np.zeros((num_bands,lines0,samples0))
     for k in range(num_bands): 
         bn1 = MS[k,:,:]                    
@@ -170,13 +170,13 @@ Options:
         msDWT.filter()
 #      determine wavelet normalization coefficents                
         ms = msDWT.get_quadrant(1)    
-        aa[0],bb[0],R = auxil.orthoregress(fgpan.ravel(), ms.ravel())
+        aa[0],bb[0],R = auxil1.orthoregress(fgpan.ravel(), ms.ravel())
         Rs = 'Band '+str(i+1)+': %8.3f'%R
         ms = msDWT.get_quadrant(2)
-        aa[1],bb[1],R = auxil.orthoregress(gfpan.ravel(), ms.ravel())
+        aa[1],bb[1],R = auxil1.orthoregress(gfpan.ravel(), ms.ravel())
         Rs += '%8.3f'%R                     
         ms = msDWT.get_quadrant(3)
-        aa[2],bb[2],R = auxil.orthoregress(ggpan.ravel(), ms.ravel()) 
+        aa[2],bb[2],R = auxil1.orthoregress(ggpan.ravel(), ms.ravel()) 
         Rs += '%8.3f'%R    
         print Rs         
 #      restore once and normalize wavelet coefficients

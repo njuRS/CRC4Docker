@@ -7,7 +7,7 @@
 #
 #  Copyright (c) 2018 Mort Canty
 
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import sys, os, time, getopt
 import numpy as np
 from scipy import linalg
@@ -113,12 +113,12 @@ Options:
         m = X.shape[0]
     print 'centered kernel matrix...'
 # centered kernel matrix    
-    K, gma = auxil.kernelMatrix(X,nscale=5,kernel=kernel)      
+    K, gma = auxil1.kernelMatrix(X,nscale=5,kernel=kernel)      
     meanK = np.sum(K)/(m*m)
     rowmeans = np.mat(np.sum(K,axis=0)/m)
     if gma is not None:
         print 'gamma: '+str(gma)    
-    K = auxil.center(K)    
+    K = auxil1.center(K)    
     print 'diagonalizing...'
 # diagonalize
     try:
@@ -138,7 +138,7 @@ Options:
     image = np.zeros((rows,cols,n)) 
     for i in range(rows):
         XXi = XX[i*cols:(i+1)*cols,:]       
-        KK,gma = auxil.kernelMatrix(X,XXi,kernel=kernel,gma=gma)
+        KK,gma = auxil1.kernelMatrix(X,XXi,kernel=kernel,gma=gma)
 #  centering on training data: 
 #      subtract column means
         colmeans = np.mat(np.sum(KK,axis=0)/m)

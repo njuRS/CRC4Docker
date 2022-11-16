@@ -1,0 +1,3 @@
+import rasterio
+
+print ('ok')

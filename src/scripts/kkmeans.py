@@ -10,7 +10,7 @@
 import numpy as np
 import os, sys, getopt, time
 from osgeo import gdal
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 from osgeo.gdalconst import GA_ReadOnly, GDT_Byte
 
 def main():
@@ -93,7 +93,7 @@ Options:
     X = XX[idx,:]  
     print 'kernel matrix...'
 # uncentered kernel matrix    
-    KK, gma = auxil.kernelMatrix(X,kernel=1,nscale=nscale)      
+    KK, gma = auxil1.kernelMatrix(X,kernel=1,nscale=nscale)      
     if gma is not None:
         print 'gamma: '+str(round(gma,6))    
 #  initial (random) class labels
@@ -125,7 +125,7 @@ Options:
     class_image = np.zeros((rows,cols),dtype=np.byte)
     while i < rows:     
         XXi = XX[i*cols:(i+1)*cols,:]
-        KKK,_ = auxil.kernelMatrix(X,XXi,gma=gma,kernel=1)
+        KKK,_ = auxil1.kernelMatrix(X,XXi,gma=gma,kernel=1)
         Z = A - 2*(KKK.T)*(MU.T)
         Z= np.array(Z)
         labels = np.argmin(Z,axis=1).ravel()

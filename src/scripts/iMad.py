@@ -8,7 +8,7 @@
 #
 #  Copyright (c) 2018 Mort Canty
 
-import auxil.auxil1 as auxil    
+import auxil.auxil1 as auxil1    
 import numpy as np    
 import matplotlib.pyplot as plt
 from scipy import linalg, stats 
@@ -118,7 +118,7 @@ For ENVI files, ext1 or ext2 is the empty string.
     print 'second scene: '+fn2   
     start = time.time()
 #  iteration of MAD    
-    cpm = auxil.Cpm(2*bands)   
+    cpm = auxil1.Cpm(2*bands)   
     delta = 1.0
     oldrho = np.zeros(bands)     
     itr = 0
@@ -172,8 +172,8 @@ For ENVI files, ext1 or ext2 is the empty string.
         b2 = s22
 #      solution of generalized eigenproblems 
         if bands>1:
-            mu2a,A = auxil.geneiv(c1,b1)                
-            mu2b,B = auxil.geneiv(c2,b2)               
+            mu2a,A = auxil1.geneiv(c1,b1)                
+            mu2b,B = auxil1.geneiv(c2,b2)               
 #          sort a   
             idx = np.argsort(mu2a)      
             A = (A[:,idx])[:,::-1]        

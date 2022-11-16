@@ -14,7 +14,7 @@ from osgeo.gdalconst import GA_ReadOnly
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 
 def make_image(redband,greenband,blueband,rows,cols,enhance):
     X = np.ones((rows*cols,3),dtype=np.uint8) 
@@ -22,25 +22,25 @@ def make_image(redband,greenband,blueband,rows,cols,enhance):
         i = 0
         for tmp in [redband,greenband,blueband]:
             tmp = tmp.ravel()
-            X[:,i] = auxil.bytestr(tmp,[0,255])
+            X[:,i] = auxil1.bytestr(tmp,[0,255])
             i += 1
     elif enhance == 'linear':
         i = 0
         for tmp in [redband,greenband,blueband]:             
             tmp = tmp.ravel()  
-            X[:,i] = auxil.linstr(tmp)
+            X[:,i] = auxil1.linstr(tmp)
             i += 1
     elif enhance == 'linear2pc':
         i = 0
         for tmp in [redband,greenband,blueband]:     
             tmp = tmp.ravel()        
-            X[:,i] = auxil.lin2pcstr(tmp)
+            X[:,i] = auxil1.lin2pcstr(tmp)
             i += 1       
     elif enhance == 'equalization':   
         i = 0
         for tmp in [redband,greenband,blueband]:     
             tmp = tmp.ravel()                
-            X[:,i] = auxil.histeqstr(tmp) 
+            X[:,i] = auxil1.histeqstr(tmp) 
             i += 1
     elif enhance == 'logarithmic':   
         i = 0
@@ -60,7 +60,7 @@ def make_image(redband,greenband,blueband,rows,cols,enhance):
             tmp = np.where(tmp<0,0,tmp)  
             tmp = np.where(tmp>255,255,tmp)
 #          2% linear stretch   
-            X[:,i] = auxil.lin2pcstr(tmp)        
+            X[:,i] = auxil1.lin2pcstr(tmp)        
             i += 1                           
     return np.reshape(X,(rows,cols,3))/255.
 

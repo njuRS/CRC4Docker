@@ -7,7 +7,7 @@
 #
 #  Copyright (c) 2018, Mort Canty
 
-import auxil.auxil1 as auxil
+import auxil.auxil1 as auxil1
 import os, sys, time, getopt
 import numpy as np
 import scipy.ndimage.interpolation as ndi
@@ -205,7 +205,7 @@ and the class probabilities output file is named
     DWTbands = []               
     for b in pos:
         band = inDataset.GetRasterBand(b)
-        DWTband = auxil.DWTArray(band.ReadAsArray(x0,y0,cols,rows).astype(float),cols,rows)
+        DWTband = auxil1.DWTArray(band.ReadAsArray(x0,y0,cols,rows).astype(float),cols,rows)
         for i in range(max_scale):
             DWTband.filter()
         DWTbands.append(DWTband)
